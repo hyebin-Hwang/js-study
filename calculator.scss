@@ -1,0 +1,34 @@
+$primary-color:blue;
+
+@mixin justColor($font){
+    background: lightblue;
+    color: black;
+    font-weight: $font;
+}
+
+body{
+    @include justColor(bold)
+}
+.container{
+    background-color: white;
+    .title{
+        background-color: lightgreen;
+    }
+    .instruction{
+        background-color: lightpink;
+    }
+    .result {
+        p{
+            color:blue;
+        }
+    }
+    button{
+        background-color: crimson;
+        border:none;
+        font-weight: bold;
+        &:hover{
+            background-color: gray;
+        }
+    }
+    
+}
