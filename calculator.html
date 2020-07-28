@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://kit.fontawesome.com/e66429a8fe.js" crossorigin="anonymous"></script>
+    <style>
+        *{margin:0; padding:0;box-sizing: border-box;}
+        .container{
+            max-width:500px;
+            margin:0 auto;
+            margin-top:100px;
+            border: 1px solid;
+            height: 500px;
+            position: relative;
+        }
+        .container h2{
+            text-align: center;
+            padding: 5px 0;
+            border-bottom:1px solid;
+        }
+        .instruction {
+            max-width:450px;
+            margin:15px auto;
+            border:1px solid black;
+        }
+        .instruction p {
+            text-align: center;
+            padding:10px 0;
+            font-size: 16px;
+        }
+        .bill{
+            margin-left: 25px;
+            padding-bottom: 20px;
+        }
+        .people{
+            margin-left: 25px;
+        }
+        .bill p , .people p {
+            margin-bottom: 10px;
+        }
+        input{
+            height:23px;
+            width: 300px;
+            padding-left: 5px;
+        }
+        button{
+            width:150px;
+            height:23px;
+            margin:0 auto;
+            display:block;
+            margin-top: 70px;
+        }
+        .result {
+            position: absolute;
+            right:25px;
+            width:130px;
+            border: 1px solid;
+            height:130px;
+            top:210px;
+            overflow: hidden;
+
+        }
+        .result p{
+            padding:3px;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>Calculator</h2>
+        </div>
+        <div class="instruction">
+            <p>Bill amount cannot be blank</p>
+            <p>Number of users must be greater than zero</p>
+            <p style= "font-size: 20px;"><i class="fas fa-calculator"></i></p>
+        </div>
+        <div class="bill">
+            <p>How much was your bill?</p>
+            <input type="number" id="bill_input" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+        </div>
+        <div class="people">
+            <p>How many people sharing the bill?</p>
+            <input type="number" id="people_input"onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+        </div>
+        <form id= "calculator-js">
+            <button>Calculator</button>
+        </form>
+        <div class="result">
+            <p id = "result_bill"></p>
+            <p id = "result_people"></p>
+            <p id = "result_total"></p>
+        </div>
+    </div>
+    <script>
+        // value 에 컴마 찍기
+        function handleCal(e){
+            const resultTotal = document.getElementById(`result_total`);
+            const resultPeople = document.getElementById("result_people");
+            const resultBill = document.getElementById("result_bill")
+            const billValue = document.getElementById(`bill_input`).value;
+            const billComma = billValue.toLocaleString();
+            const peopleValue = document.getElementById("people_input").value;
+            const result = function (x,y){
+                    return x / y
+            }
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+            const comma2 = billValue.toLocaleString();
+            const comma = numberWithCommas(billValue);
+            resultBill.innerText = `BILL : ${comma}`
+            resultPeople.innerText = `PEOPLE : ${peopleValue}`
+            resultTotal.innerText = `TOTAL : ${result(billValue,peopleValue).toLocaleString(undefined,{maximumFractionDigits: 2})}`
+        }
+
+        function handleInput(e){
+            if(e.keyCode === 13){
+                handleCal();
+            }
+        }
+        
+        function calculator(){
+            const form = document.getElementById(`calculator-js`);
+            const button = form.querySelector(`button`);
+            const billInput = document.getElementById("bill_input");
+            const peopleInput = document.getElementById("people_input");
+            button.addEventListener("click",handleCal);
+            form.addEventListener("submit",(e)=>{
+                e.preventDefault();
+            });
+            peopleInput.addEventListener("keyup",handleInput);
+        }
+        calculator();
+    </script>
+</body>
+</html>
