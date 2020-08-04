@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="style/contact.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>Please Contact me</h2>
+        </div>
+        <div id="name" class= "input_content">
+            <p>Name</p>
+            <input type="text" id= "name-js">
+        </div>
+        <div id="email" class= "input_content">
+            <p>Email</p>
+            <input type="email" id = "email-js">
+        </div>
+        <div id="meesage" class= "input_content message">
+            <p>Message</p>
+            <textarea name="message" id="textarea" rows="10"></textarea>
+        </div>
+        <div class="btn_sec">
+            <input id="send"type="submit" value="Send">
+            <button id="reset">Reset</button>
+        </div>  
+    </div>
+    <script>
+        //error 1. 저장 시 먼저저장한것이 사라짐 
+        // 이유 :  순서를 정해주지 않아서 ? if array 값이 있다면 length +1 ?
+        const setItem = (item)=>{
+            localStorage.setItem("user",JSON.stringify(item));
+        }
+        let user = [];
+        const saveUser = ()=>{
+            const USER = "user";
+            const name = document.getElementById("name-js");
+            const email = document.getElementById("email-js");
+            const textarea = document.getElementById("textarea");
+            const userInfo = {
+                name : name.value,
+                email : email.value,
+                message : textarea.value
+            }
+            user.push(userInfo);
+            setItem(user);
+            name.value = "";
+            email.value = "";
+            textarea.value = "";
+            
+        }
+        
+        const resetUser = ()=>{
+            localStorage.removeItem("user")
+        }
+        const clickbtn = ()=>{
+            saveUser();
+        }
+        const contactUser = ()=>{
+            const sendBtn = document.getElementById("send");
+            const resetBtn = document.getElementById("reset")
+            sendBtn.addEventListener("click",clickbtn);
+            resetBtn.addEventListener("click",resetUser)
+        }
+        contactUser();
+    </script>
+</body>
+</html>

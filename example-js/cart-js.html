@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CART</title>
+    <style>
+        *{margin:0; padding:0; box-sizing: border-box;}
+        body{background-color: cadetblue; color: white;font-size: 30px;}
+        .container{max-width:500px; margin:0 auto;}
+        li{list-style: none;}
+        #nav-js{
+            display:flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        #nav-js li{
+            border: 1px solid black;
+            padding:5px 10px 5px 10px;
+            cursor:pointer;
+        }
+
+        .contents_sec{
+            margin-top:50px;
+            display:flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .contents_sec li{
+            flex: 0 1 30%;;
+            border:1px solid black;
+            margin-top:30px;
+            background-color: white;
+        } 
+        .content .img_box{
+            cursor:pointer;
+            text-align: center;
+            height:100px;
+            border-bottom: 1px solid black;
+            color:blue;
+        }
+        .content .text_box {
+            color:yellowgreen;
+            text-align: center;
+        }
+        .block{
+            display:block;
+        }
+        .none{
+            display:none;
+        }
+
+        .cart_container{
+            position: absolute;
+            right:0;
+            top:0;
+            border:1px solid black;
+            width:150px;
+            height:400px;
+        }
+        .cartlist{
+            font-size: 15px;
+
+        }
+        #total{
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <ul class="cart_container" id = "cart_container">
+        <span id="total"></span>
+    </ul>
+    <div class="container">
+        <nav>
+            <ul id="nav-js">
+                <li data-filter="All">All</li>
+                <li data-filter="1">1~3</li>
+                <li data-filter="4">4~6</li>
+                <li data-filter="7">7~9</li>
+            </ul>
+        </nav>
+        <main>
+            <ul id="main-js" class="contents_sec">
+                <li class="1">
+                    <div class="content">
+                        <div class="img_box">1</div>
+                        <div class="text_box">4</div>    
+                    </div>
+                </li>
+                <li class="1">
+                    <div class="content">
+                        <div class="img_box">2</div>
+                        <div class="text_box">2</div>    
+                    </div>
+                </li>
+                <li class="1">
+                    <div class="content">
+                        <div class="img_box">3</div>
+                        <div class="text_box">5</div>    
+                    </div>
+                </li>
+                <li class="4">
+                    <div class="content">
+                        <div class="img_box">4</div>
+                        <div class="text_box">6</div>    
+                    </div>
+                </li>
+                <li class="4">
+                    <div class="content">
+                        <div class="img_box">5</div>
+                        <div class="text_box">7</div>    
+                    </div>
+                </li>
+                <li class="4">
+                    <div class="content">
+                        <div class="img_box">6</div>
+                        <div class="text_box">1</div>    
+                    </div>
+                </li>
+                <li class="7">
+                    <div class="content">
+                        <div class="img_box">7</div>
+                        <div class="text_box">2</div>    
+                    </div>
+                </li>
+                <li class="7">
+                    <div class="content">
+                        <div class="img_box">8</div>
+                        <div class="text_box">9</div>    
+                    </div>
+                </li>
+                <li class="7">
+                    <div class="content">
+                        <div class="img_box">9</div>
+                        <div class="text_box">5</div>    
+                    </div>
+                </li>
+            </ul>
+        </main>
+    </div>
+    <script>
+        const li = document.querySelectorAll(`.img_box`);
+        const cartContainer = document.getElementById("cart_container");
+
+        function paintCart(){
+            li.forEach((e)=>{
+                e.addEventListener("click",handleCart);
+            })
+        }
+        function handleCart(item){
+            const cartList = document.createElement(`li`);
+            const btn = document.createElement(`button`);
+            const span = document.createElement(`span`);
+            const moneySpan = document.createElement(`span`);
+            const totalSpan = document.getElementById(`total`);
+            btn.innerText = "X";
+            cartContainer.appendChild(cartList);
+            cartList.appendChild(span);
+            cartList.appendChild(moneySpan);
+            cartList.appendChild(btn);
+            cartList.classList.add(`cartlist`);
+            btn.addEventListener("click",handleDelete);
+            const one = item.target.textContent;
+            const two = item.target.nextElementSibling.textContent;
+            span.innerText = `순서 : ${one} 값 : `;
+            moneySpan.innerText = `${two}`  ;
+            moneySpan.classList.add("price");
+            function plus(){
+                let total = [];
+                const price = document.querySelectorAll(`.price`)
+                price.forEach((e)=>{
+                    total.push(parseInt(e.textContent))
+                })
+                const totalMoney = total.reduce((total,item)=>{
+                    total += item;
+                    return total;
+                })
+                totalSpan.innerText = `total : ${totalMoney}  `
+            }
+            plus();
+        }
+        //위에서 받은 값을 다 더하기 단순하게 
+
+
+        function handleDelete(event){
+            const li = event.target.parentNode;
+            cartContainer.removeChild(li);
+        }
+
+        function init(){
+            paintCart()
+        };
+        init();
+        //nextsibling 이 존재하지 않는다면 previous 로 
+        //target.textContent
+    </script>
+</body>
+</html>

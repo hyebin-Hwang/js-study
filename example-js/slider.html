@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image slider</title>
+    <script src="https://kit.fontawesome.com/e66429a8fe.js" crossorigin="anonymous"></script>
+    <style>
+        *{padding:0;margin:0;}
+        h1{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color:chartreuse;
+            position: absolute;
+            z-index: 1;
+            margin: 50px;
+        }
+  
+        span{
+            position: absolute;
+            cursor: pointer;
+        }
+        i{
+            font-size:50px;
+        }
+        #left{
+            top:300px;
+        }
+        #right{
+            right:0;
+            top:300px;
+        }
+        #container{
+            position: relative;
+            width:500px;
+            height:500px;
+            margin: 0 auto;
+            margin-top: 30px;
+            border: 2px solid;
+            background-size: 600px 600px;
+        }
+        </style>
+</head>
+<body>
+    <header>
+        <h1>Image Slider</h1>
+    </header>
+    <main>
+        <span id="left"><i class="fas fa-arrow-left"></i></span>
+        <span id="right"><i class="fas fa-arrow-right"></i></span>
+        <div id="container">
+        </div>
+    </main>
+    <script defer>
+        const leftBtn = document.getElementById("left");
+        const rightBtn = document.getElementById("right");
+        
+        let container = document.getElementById("container");
+        const images = [ "1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"]
+        container.style.background =`url(./images/${images[0]})`;
+        container.style.backgroundSize = "contain";
+
+        let i = 0;
+
+        const handleClick = ()=>{    
+            leftBtn.addEventListener("click",handleLeft);
+            rightBtn.addEventListener("click",handleRight);
+        }
+
+        const handleLeft = ()=>{
+            i--;
+            if(i < 0){
+                i = images.length -1;
+            }
+            container.style.background =`url(./images/${images[i]})`;
+            container.style.backgroundSize = "contain";
+
+        }
+        const handleRight = ()=>{
+            i++;
+            if( i>= images.length){
+                i =0;
+            }
+            container.style.background = `url(./images/${images[i]})`;
+            container.style.backgroundSize = "contain";
+
+        }
+        handleClick();
+    </script>
+</body>
+</html>

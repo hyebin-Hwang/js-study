@@ -1,0 +1,32 @@
+body {
+  background: lightblue;
+  color: black;
+  font-weight: bold;
+}
+
+.container {
+  background-color: white;
+}
+
+.container .title {
+  background-color: lightgreen;
+}
+
+.container .instruction {
+  background-color: lightpink;
+}
+
+.container .result p {
+  color: blue;
+}
+
+.container button {
+  background-color: crimson;
+  border: none;
+  font-weight: bold;
+}
+
+.container button:hover {
+  background-color: gray;
+}
+/*# sourceMappingURL=calculator.css.map */
