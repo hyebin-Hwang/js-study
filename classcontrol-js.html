@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+   .btn {
+      border: none;
+      outline: none;
+      padding: 10px 16px;
+      background-color: #6ea2f0;
+      cursor: pointer;
+      color:white;
+      font-size: 18px;
+   }
+   .active, .btn:hover {
+      background-color: #666;
+      color: white;
+   }
+</style>
+</head>
+<body>
+<h1>Active Button Example</h1>
+<div id="sampleDiv">
+<button class="btn">Giraffe</button>
+<button class="btn ">Cow</button>
+<button class="btn">Lion</button>
+<button class="btn">Leopard</button>
+<button class="btn">Cheetah</button>
+</div>
+<h2>Press any of the above button to set it class to active</h2>
+<script>
+    var btns = document.querySelectorAll(".btn");
+    Array.from(btns).forEach(item => {
+       item.addEventListener("click", () => {
+           var selected = document.getElementsByClassName("active");
+        if(selected.length === 0){
+            item.classList.add("active")
+        }
+        selected[0].className = selected[0].className.replace(" active", "");
+        item.classList.add("active")
+       });
+    });
+ </script>
+</body>
+</html>
+Output
